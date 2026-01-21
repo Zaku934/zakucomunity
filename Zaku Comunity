@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Zaku Comunity – społeczność i studio Roblox / 3D / grafika / kod</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zaku Comunity – społeczność graczy i twórców. Grafika, modele 3D, programowanie oraz usługi Roblox. Sprawdź cennik i dołącz na Discorda.">
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #050013;
+            --bg-soft: #090020;
+            --bg-glass: rgba(10, 0, 40, 0.82);
+            --accent: #ff5af1;
+            --accent2: #4af4ff;
+            --accent3: #a855ff;
+            --text-main: #fdf4ff;
+            --text-muted: #b3b1ff;
+            --border: rgba(148, 163, 255, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 10% -10%, #43127b 0, transparent 55%),
+                radial-gradient(circle at 100% 10%, #1d4ed8 0, transparent 55%),
+                linear-gradient(135deg, #050013 0, #120022 50%, #1b0142 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1.5rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .orb {
+            position: fixed;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .orb-1 { background:#ff5af1; top:-150px; left:-120px; }
+        .orb-2 { background:#4af4ff; bottom:-160px; right:-120px; }
+        .orb-3 { background:#a855ff; top:40%; left:60%; }
+
+        /* NAVBAR */
+        .nav { position: sticky; top: 0; z-index: 20; margin-bottom: 1.8rem; }
+        .nav-inner {
+            display:flex; align-items:center; justify-content:space-between; gap:1rem;
+            padding:0.75rem 1.1rem;
+            background:rgba(5,0,25,0.85);
+            border-radius:999px;
+            border:1px solid rgba(148,163,255,0.4);
+            backdrop-filter:blur(20px);
+            box-shadow:0 18px 40px rgba(15,23,42,0.8);
+        }
+        .brand { display:flex; align-items:center; gap:0.75rem; }
+        .brand-logo {
+            width:46px; height:46px; border-radius:16px; overflow:hidden;
+            background:radial-gradient(circle at 30% 0,#ff5af1 0,#4af4ff 50%,#050013 90%);
+            box-shadow:0 0 25px rgba(255,90,241,0.7);
+            flex-shrink:0;
+        }
+        .brand-meta { display:flex; flex-direction:column; gap:0.1rem; }
+        .brand-name { font-weight:800; letter-spacing:0.12em; text-transform:uppercase; font-size:0.9rem; }
+        .brand-sub { font-size:0.8rem; color:var(--text-muted); }
+
+        .nav-links { display:flex; gap:1.4rem; font-size:0.86rem; }
+        .nav-links a {
+            position:relative; color:var(--text-muted);
+        }
+        .nav-links a::after {
+            content:""; position:absolute; left:0; bottom:-0.15rem; width:0; height:2px;
+            border-radius:999px; background:linear-gradient(90deg,var(--accent),var(--accent2));
+            transition:width 0.2s ease-out;
+        }
+        .nav-links a:hover { color:var(--text-main); }
+        .nav-links a:hover::after { width:100%; }
+        .nav-cta { display:none; }
+
+        .btn {
+            border-radius:999px;
+            padding:0.65rem 1.6rem;
+            font-size:0.9rem;
+            font-weight:600;
+            border:1px solid transparent;
+            display:inline-flex;
+            align-items:center;
+            gap:0.4rem;
+            cursor:pointer;
+            transition:all 0.16s ease-out;
+            white-space:nowrap;
+        }
+        .btn-primary {
+            background:radial-gradient(circle at 10% -10%,var(--accent) 0,var(--accent3) 40%,var(--accent2) 100%);
+            color:#120014;
+            box-shadow:0 14px 40px rgba(255,90,241,0.55);
+        }
+        .btn-primary:hover {
+            transform:translateY(-1px) scale(1.01);
+            filter:brightness(1.05);
+            box-shadow:0 18px 55px rgba(255,90,241,0.75);
+        }
+        .btn-ghost {
+            background:rgba(7,7,40,0.85);
+            border-color:var(--border);
+            color:var(--text-muted);
+        }
+        .btn-ghost:hover {
+            background:rgba(15,23,42,0.95);
+            color:var(--text-main);
+        }
+
+        /* HERO */
+        .hero {
+            display:grid;
+            grid-template-columns:minmax(0,3.2fr) minmax(0,2.4fr);
+            gap:2.6rem;
+            align-items:center;
+            padding:0.8rem 0 2.4rem;
+        }
+        .hero-kicker {
+            font-size:0.78rem; text-transform:uppercase; letter-spacing:0.22em;
+            color:var(--accent2); margin-bottom:0.5rem;
+        }
+        .hero-title {
+            font-size:clamp(2.4rem,4.2vw,3.1rem);
+            line-height:1.1;
+            font-weight:800;
+            margin-bottom:0.7rem;
+        }
+        .hero-title span {
+            background:linear-gradient(90deg,var(--accent),var(--accent2));
+            -webkit-background-clip:text;
+            color:transparent;
+            text-shadow:0 0 30px rgba(255,90,241,0.7);
+        }
+        .hero-sub {
+            font-size:0.98rem;
+            color:var(--text-muted);
+            max-width:36rem;
+            margin-bottom:1.3rem;
+        }
+        .hero-dynamic { font-size:0.92rem; margin-bottom:1.4rem; }
+        .hero-dynamic span { color:var(--accent); font-weight:600; }
+        .hero-actions { display:flex; flex-wrap:wrap; gap:0.9rem; align-items:center; margin-bottom:1.1rem; }
+        .hero-note { font-size:0.8rem; color:var(--text-muted); }
+        .hero-note strong { color:var(--text-main); }
+
+        /* HERO PANEL */
+        .hero-panel {
+            background:
+                radial-gradient(circle at 0 0,rgba(255,90,241,0.55),transparent 55%),
+                radial-gradient(circle at 100% 0,rgba(74,244,255,0.5),transparent 50%),
+                rgba(3,0,20,0.94);
+            border-radius:1.8rem;
+            padding:1.1rem;
+            border:1px solid rgba(148,163,255,0.6);
+            box-shadow:0 26px 70px rgba(15,23,42,0.9);
+            position:relative;
+            overflow:hidden;
+        }
+        .hero-panel::after {
+            content:"";
+            position:absolute; inset:0;
+            background-image:
+                linear-gradient(120deg,rgba(255,255,255,0.06) 1px,transparent 1px),
+                linear-gradient(210deg,rgba(255,255,255,0.05) 1px,transparent 1px);
+            background-size:120px 120px;
+            opacity:0.25;
+            mix-blend-mode:soft-light;
+            pointer-events:none;
+        }
+        .panel-inner {
+            position:relative;
+            border-radius:1.4rem;
+            border:1px solid rgba(129,140,248,0.7);
+            padding:1rem;
+            background:radial-gradient(circle at 0 0,rgba(15,23,42,0.95),rgba(15,23,42,0.9));
+            z-index:1;
+        }
+        .panel-top {
+            display:flex; justify-content:space-between; align-items:center;
+            font-size:0.8rem; margin-bottom:0.7rem; color:var(--text-muted);
+        }
+        .chip {
+            display:inline-flex; align-items:center; gap:0.35rem;
+            padding:0.2rem 0.7rem;
+            border-radius:999px;
+            background:rgba(6,78,59,0.5);
+            border:1px solid rgba(45,212,191,0.7);
+            font-size:0.75rem;
+        }
+        .chip-dot {
+            width:8px; height:8px; border-radius:999px;
+            background:#4ade80; box-shadow:0 0 10px rgba(74,222,128,0.9);
+        }
+
+        .server-card {
+            border-radius:1rem;
+            padding:0.85rem;
+            background:linear-gradient(135deg,rgba(15,23,42,0.95),rgba(55,65,194,0.9));
+            border:1px solid rgba(129,140,248,0.8);
+            font-size:0.83rem;
+            margin-bottom:0.85rem;
+        }
+        .server-name { display:flex; justify-content:space-between; gap:0.6rem; margin-bottom:0.4rem; }
+        .server-title { font-weight:600; }
+        .server-tag { font-size:0.73rem; text-transform:uppercase; letter-spacing:0.14em; color:#c7d2fe; }
+        .server-invite {
+            font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New",monospace;
+            padding:0.3rem 0.55rem;
+            border-radius:0.5rem;
+            background:rgba(15,23,42,0.9);
+            border:1px solid rgba(129,140,248,0.7);
+            font-size:0.8rem;
+        }
+        .server-invite span { color:#a5b4fc; }
+        .server-footer { display:flex; justify-content:space-between; margin-top:0.6rem; color:var(--text-muted); }
+        .online { display:flex; align-items:center; gap:0.35rem; }
+        .online-dot {
+            width:9px; height:9px; border-radius:999px;
+            background:#4ade80; box-shadow:0 0 10px rgba(74,222,128,1);
+        }
+
+        .mini-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0.6rem; font-size:0.78rem; }
+        .mini-card {
+            border-radius:0.9rem; padding:0.6rem 0.7rem;
+            background:rgba(15,23,42,0.95);
+            border:1px solid rgba(148,163,184,0.45);
+            color:var(--text-muted);
+        }
+        .mini-label {
+            font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase;
+            color:#a5b4fc; margin-bottom:0.2rem;
+        }
+        .mini-main { font-weight:600; color:var(--text-main); margin-bottom:0.1rem; }
+
+        /* SECTIONS */
+        section { padding:2.2rem 0 0; }
+        .section-head { margin-bottom:1.4rem; }
+        .section-kicker {
+            font-size:0.8rem; text-transform:uppercase; letter-spacing:0.18em;
+            color:var(--accent2); margin-bottom:0.3rem;
+        }
+        .section-title { font-size:1.4rem; font-weight:700; margin-bottom:0.2rem; }
+        .section-desc { font-size:0.92rem; color:var(--text-muted); max-width:42rem; }
+
+        .grid-3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.2rem; }
+        .grid-2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem; }
+
+        .card {
+            border-radius:1.2rem;
+            padding:1rem;
+            background:var(--bg-glass);
+            border:1px solid var(--border);
+            box-shadow:0 16px 40px rgba(15,23,42,0.85);
+            font-size:0.9rem;
+        }
+        .card h3 { font-size:1.02rem; margin-bottom:0.35rem; }
+        .card p { color:var(--text-muted); font-size:0.88rem; }
+        .tags-row { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.6rem; }
+        .tag-pill {
+            font-size:0.72rem; padding:0.2rem 0.6rem;
+            border-radius:999px;
+            border:1px solid rgba(148,163,184,0.5);
+            color:var(--text-muted);
+        }
+
+        ul.clean { list-style:none; margin-top:0.4rem; font-size:0.86rem; color:var(--text-muted); }
+        ul.clean li { margin-bottom:0.35rem; }
+        ul.clean li::before {
+            content:"•"; color:var(--accent); margin-right:0.4rem;
+        }
+
+        /* CENNIK TABELA */
+        .price-table {
+            width:100%;
+            border-collapse:collapse;
+            margin-top:0.6rem;
+            font-size:0.88rem;
+        }
+        .price-table th,
+        .price-table td {
+            padding:0.45rem 0.5rem;
+            border-bottom:1px solid rgba(148,163,184,0.4);
+        }
+        .price-table th {
+            text-align:left;
+            font-size:0.8rem;
+            text-transform:uppercase;
+            letter-spacing:0.12em;
+            color:var(--accent2);
+        }
+        .price-table td.price {
+            text-align:right;
+            font-weight:600;
+            color:var(--accent);
+        }
+        .price-note {
+            font-size:0.8rem;
+            color:var(--text-muted);
+            margin-top:0.5rem;
+            font-style:italic;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top:1px solid rgba(88,28,135,0.9);
+            background:rgba(2,0,20,0.98);
+            margin-top:2.6rem;
+        }
+        .footer-inner {
+            max-width:1200px;
+            margin:0 auto;
+            padding:1rem 1.5rem 1.4rem;
+            font-size:0.8rem;
+            color:var(--text-muted);
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:1rem;
+            flex-wrap:wrap;
+        }
+        .footer-links { display:flex; gap:0.9rem; }
+        .footer-links a:hover { color:var(--text-main); }
+
+        /* RESPONSYWNOŚĆ */
+        @media (max-width: 980px) {
+            .hero { grid-template-columns:minmax(0,1fr); }
+            .hero-panel { order:-1; }
+            .grid-3 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+        }
+        @media (max-width: 780px) {
+            .nav-links { display:none; }
+            .nav-cta { display:inline-flex; }
+            .grid-3, .grid-2 { grid-template-columns:minmax(0,1fr); }
+            .page { padding-inline:1.1rem; }
+        }
+        @media (max-width: 500px) {
+            .nav-inner { padding-inline:0.8rem; }
+            .brand-sub { max-width:11rem; }
+            .hero-title { font-size:2.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NEON TŁO -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="page">
+        <!-- NAVBAR -->
+        <header class="nav">
+            <div class="nav-inner">
+                <div class="brand">
+                    <div class="brand-logo">
+                        <!-- PODMIEŃ ŚCIEŻKĘ DO LOGO -->
+                        <img src="img/logo-zaku.png" alt="Logo Zaku Comunity">
+                    </div>
+                    <div class="brand-meta">
+                        <div class="brand-name">Zaku Comunity</div>
+                        <div class="brand-sub">społeczność + studio: grafika, 3D, programowanie, Roblox</div>
+                    </div>
+                </div>
+
+                <nav>
+                    <div class="nav-links">
+                        <a href="#kim-jestesmy">Kim jesteśmy</a>
+                        <a href="#czym-sie-zajmujemy">Co robimy</a>
+                        <a href="#cennik">Cennik</a>
+                        <a href="#kontakt">Kontakt</a>
+                    </div>
+                    <a href="#discord" class="btn btn-ghost nav-cta">Discord</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <main>
+            <section class="hero">
+                <div>
+                    <div class="hero-kicker">Zaku Comunity</div>
+                    <h1 class="hero-title">
+                        Społeczność i studio, które ogarnia
+                        <span>grafikę, 3D, kod i Roblox</span>.
+                    </h1>
+                    <p class="hero-sub">
+                        Łączymy klimat Discordowej ekipy z konkretnymi usługami. 
+                        Tworzymy modele 3D, grafiki, skrypty oraz projekty Roblox – od prostych dodatków, po większe systemy.
+                    </p>
+
+                    <p class="hero-dynamic">
+                        W skrócie: <span>robimy rzeczy, które mają wyglądać i działać</span>.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="https://discord.gg/vcCm98RbZQ" class="btn btn-primary" id="discord">
+                            Dołącz na Discorda
+                        </a>
+                        <a href="#cennik" class="btn btn-ghost">
+                            Skocz do cennika usług
+                        </a>
+                    </div>
+
+                    <p class="hero-note">
+                        <strong>Płatności:</strong> PaySafeCard, BLIK – szczegóły poniżej w sekcji cennika.
+                    </p>
+                </div>
+
+                <aside class="hero-panel" aria-label="Panel społeczności Zaku Comunity">
+                    <div class="panel-inner">
+                        <div class="panel-top">
+                            <span>Panel Zaku</span>
+                            <span class="chip">
+                                <span class="chip-dot"></span>
+                                status: aktywne 24/7
+                            </span>
+                        </div>
+
+                        <div class="server-card">
+                            <div class="server-name">
+                                <div>
+                                    <div class="server-tag">główny serwer</div>
+                                    <div class="server-title">Discord – Zaku Comunity</div>
+                                </div>
+                                <div class="server-invite">
+                                    invite: <span>discord.gg/vcCm98RbZQ</span>
+                                </div>
+                            </div>
+
+                            <div class="server-footer">
+                                <div class="online">
+                                    <span class="online-dot"></span>
+                                    <span>Online: <strong>ekipa graczy & twórców</strong></span>
+                                </div>
+                                <div>
+                                    klimat: <strong>no toxicity</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mini-grid">
+                            <div class="mini-card">
+                                <div class="mini-label">specjalizacja</div>
+                                <div class="mini-main">grafika • 3D • programowanie</div>
+                                <div>projekty do gier, sociali i pod community.</div>
+                            </div>
+                            <div class="mini-card">
+                                <div class="mini-label">usługi roblox</div>
+                                <div class="mini-main">systemy, pojazdy, mapy</div>
+                                <div>modele, skrypty i dodatki dopasowane do Twojego projektu Roblox.</div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+
+            <!-- KIM JESTEŚMY -->
+            <section id="kim-jestesmy">
+                <div class="section-head">
+                    <div class="section-kicker">Kim jesteśmy?</div>
+                    <h2 class="section-title">Zaku Comunity – ekipa od grafiki, 3D i kodu</h2>
+                    <p class="section-desc">
+                        Zastanawiasz się, kim jesteśmy?
+                        <strong>Zaku Comunity</strong> to grupa założona w 2026 roku.
+                        Naszym celem jest budowanie społeczności skupionej wokół
+                        <strong>programowania, grafiki komputerowej oraz modelowania 3D</strong>.
+                    </p>
+                </div>
+
+                <div class="grid-3">
+                    <article class="card">
+                        <h3>🎮 Społeczność graczy</h3>
+                        <p>
+                            Serwer Discord, wspólne granie, nocne rozmowy i luźny klimat.
+                            Szanujemy innych, unikamy dramy – ma być miejsce, do którego chce się wracać.
+                        </p>
+                        <div class="tags-row">
+                            <span class="tag-pill">multi‑gaming</span>
+                            <span class="tag-pill">nocne rozmowy</span>
+                            <span class="tag-pill">no drama zone</span>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <h3>🎨 Ekipa kreatywna</h3>
+                        <p>
+                            Projektujemy grafiki pod serwery, social media i gry.
+                            Robimy także modele 3D – od budynków, przez pojazdy, po detale map.
+                        </p>
+                        <div class="tags-row">
+                            <span class="tag-pill">grafika 2D</span>
+                            <span class="tag-pill">modele 3D</span>
+                            <span class="tag-pill">textury</span>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <h3>💻 Programiści & skrypterzy</h3>
+                        <p>
+                            Tworzymy systemy, logikę rozgrywki i skrypty – szczególnie pod Roblox,
+                            ale też inne projekty związane z community.
+                        </p>
+                        <div class="tags-row">
+                            <span class="tag-pill">skrypty Roblox</span>
+                            <span class="tag-pill">systemy gry</span>
+                            <span class="tag-pill">automatyzacja</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- CZYM SIĘ ZAJMUJEMY -->
+            <section id="czym-sie-zajmujemy">
+                <div class="section-head">
+                    <div class="section-kicker">Co robimy?</div>
+                    <h2 class="section-title">Czym się zajmujemy w Zaku Comunity</h2>
+                    <p class="section-desc">
+                        Zastanawiasz się, co dokładnie robimy?
+                        W <strong>Zaku Comunity</strong> specjalizujemy się w:
+                        <strong>tworzeniu grafik</strong>, <strong>modelowaniu 3D</strong> oraz <strong>programowaniu</strong>.
+                    </p>
+                </div>
+
+                <div class="grid-3">
+                    <article class="card">
+                        <h3>🎨 Tworzenie grafik</h3>
+                        <p>
+                            Layouty serwerów, banery, logotypy, grafiki na social media
+                            oraz elementy UI do Twoich projektów i gier.
+                        </p>
+                        <div class="tags-row">
+                            <span class="tag-pill">banery</span>
+                            <span class="tag-pill">loga</span>
+                            <span class="tag-pill">UI / ikony</span>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <h3>🧊 Modelowanie 3D</h3>
+                        <p>
+                            Budynki, pojazdy (w tym wozy strażackie, busy, auta),
+                            elementy map i scen – gotowe do użycia w Twoich projektach.
+                        </p>
+                        <div class="tags-row">
+                            <span class="tag-pill">pojazdy</span>
+                            <span class="tag-pill">mapy</span>
+                            <span class="tag-pill">propsy</span>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <h3>💻 Programowanie</h3>
+                        <p>
+                            Skrypty i systemy (szczególnie w Roblox), integracje,
+                            logika rozgrywki i funkcje, które sprawiają, że projekt naprawdę działa.
+                        </p>
+                        <div class="tags-row">
+                            <span class="tag-pill">Roblox</span>
+                            <span class="tag-pill">systemy gry</span>
+                            <span class="tag-pill">automatyka</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- CENNIK -->
+            <section id="cennik">
+                <div class="section-head">
+                    <div class="section-kicker">Cennik usług</div>
+                    <h2 class="section-title">Cennik usług naszego serwera – Roblox</h2>
+                    <p class="section-desc">
+                        Aktualnie udostępniamy publicznie cennik usług związanych z platformą
+                        <strong>Roblox</strong>. Jeśli potrzebujesz czegoś niestandardowego – odezwij się,
+                        wycenimy projekt indywidualnie.
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <article class="card">
+                        <h3>💰 Płatności</h3>
+                        <p>
+                            Płatność przyjmowana w:
+                        </p>
+                        <ul class="clean">
+                            <li><strong>PaySafeCard</strong></li>
+                            <li><strong>BLIK</strong></li>
+                        </ul>
+                        <p class="price-note">
+                            Dokładne dane do płatności oraz sposób potwierdzenia zlecenia
+                            podajemy po kontakcie na Discordzie.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>🎮 Roblox – lista usług</h3>
+
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>Usługa</th>
+                                    <th class="price">Cena</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Dodanie systemu jazdy na auta</td>
+                                    <td class="price">5 zł</td>
+                                </tr>
+                                <tr>
+                                    <td>Otwierane skrytki w pojazdach</td>
+                                    <td class="price">5 zł</td>
+                                </tr>
+                                <tr>
+                                    <td>Stworzenie modelu wozu strażackiego</td>
+                                    <td class="price">20 zł</td>
+                                </tr>
+                                <tr>
+                                    <td>Stworzenie numerów operacyjnych / napisów</td>
+                                    <td class="price">2 zł</td>
+                                </tr>
+                                <tr>
+                                    <td>Tworzenie budynków</td>
+                                    <td class="price">15 zł</td>
+                                </tr>
+                                <tr>
+                                    <td>Stworzenie tekstury</td>
+                                    <td class="price">4 zł</td>
+                                </tr>
+                                <tr>
+                                    <td>Stworzenie auta</td>
+                                    <td class="price">15 zł</td>
+                                </tr>
+                                <tr>
+                                    <td>Stworzenie modelu busa</td>
+                                    <td class="price">20 zł</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="price-note">
+                            ***Cennik może się zmienić w każdej chwili.***<br>
+                            Ostateczna wycena zawsze potwierdzana jest na prywatnej wiadomości / ticketcie na Discordzie.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- KONTAKT -->
+            <section id="kontakt">
+                <div class="section-head">
+                    <div class="section-kicker">Kontakt</div>
+                    <h2 class="section-title">Masz pomysł, pytanie, ofertę współpracy?</h2>
+                    <p class="section-desc">
+                        Najszybciej złapiesz nas na Discordzie. 
+                        Jeżeli chodzi o większe tematy (współpraca, partnerstwo), możesz też użyć maila.
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <article class="card">
+                        <h3>Discord – główny kontakt</h3>
+                        <p>
+                            Wejdź na serwer i:
+                        </p>
+                        <ul class="clean">
+                            <li>napisz do właściciela / administracji bezpośrednio</li>
+                            <li>na kanale kontaktowym / ticketowym (jeśli jest)</li>
+                        </ul>
+                        <a href="https://discord.gg/vcCm98RbZQ" class="btn btn-primary" style="margin-top:0.7rem; display:inline-flex;">
+                            Wejdź na serwer Zaku Comunity
+                        </a>
+                    </article>
+
+                    <article class="card">
+                        <h3>Mail</h3>
+                        <p style="color:var(--text-muted); font-size:0.88rem;">
+                            Oficjalny adres mailowy Zaku Comunity – do współpracy, większych projektów
+                            oraz pytań organizacyjnych.
+                        </p>
+                        <p style="margin-top:0.5rem; font-size:0.88rem;">
+                            E‑mail: <strong>zaku.groups@gmail.com</strong><br />
+                            <span style="font-size:0.78rem; color:var(--text-muted);">
+                                Pisz na ten adres tylko w sprawach związanych z Zaku Comunity i naszymi usługami.
+                            </span>
+                        </p>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            <div>© <span id="year"></span> Zaku Comunity. Wszystkie prawa zastrzeżone.</div>
+            <div class="footer-links">
+                <a href="#kim-jestesmy">Kim jesteśmy</a>
+                <a href="#czym-sie-zajmujemy">Co robimy</a>
+                <a href="#cennik">Cennik</a>
+                <a href="#discord">Discord</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
